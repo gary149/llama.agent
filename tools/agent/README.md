@@ -91,8 +91,8 @@ Skills are reusable prompt modules that extend the agent's capabilities. They fo
 Skills are directories containing a `SKILL.md` file with YAML frontmatter:
 
 ```bash
-mkdir -p ~/.config/llama-agent/skills/code-review
-cat > ~/.config/llama-agent/skills/code-review/SKILL.md << 'EOF'
+mkdir -p ~/.llama-agent/skills/code-review
+cat > ~/.llama-agent/skills/code-review/SKILL.md << 'EOF'
 ---
 name: code-review
 description: Review code for bugs, security issues, and improvements. Use when asked to review code or a PR.
@@ -138,7 +138,7 @@ Markdown instructions for the agent...
 Skills are discovered from (in priority order):
 
 1. `./.llama-agent/skills/` - Project-local skills
-2. `~/.config/llama-agent/skills/` - User-global skills
+2. `~/.llama-agent/skills/` - User-global skills
 3. Custom paths via `--skills-path`
 
 ### CLI Options
@@ -170,7 +170,7 @@ The agent automatically discovers and loads [AGENTS.md](https://agents.md) files
 
 1. `./AGENTS.md` - Current working directory (highest precedence)
 2. `../AGENTS.md`, `../../AGENTS.md`, ... - Parent directories up to git root
-3. `~/.config/llama-agent/AGENTS.md` - Global user preferences (lowest precedence)
+3. `~/.llama-agent/AGENTS.md` - Global user preferences (lowest precedence)
 
 ### Creating an AGENTS.md File
 
@@ -220,7 +220,7 @@ The agent supports [Model Context Protocol (MCP)](https://modelcontextprotocol.i
 
 ### Configuration
 
-Create an `mcp.json` file in your working directory or at `~/.config/llama-agent/mcp.json`:
+Create an `mcp.json` file in your working directory or at `~/.llama-agent/mcp.json`:
 
 ```json
 {

@@ -237,7 +237,7 @@ std::string find_mcp_config(const std::string & working_dir) {
     // Then check user config directory
     const char * home = std::getenv("HOME");
     if (home) {
-        fs::path user_config = fs::path(home) / ".config" / "llama-agent" / "mcp.json";
+        fs::path user_config = fs::path(home) / ".llama-agent" / "mcp.json";
         if (fs::exists(user_config)) {
             return user_config.string();
         }

@@ -67,5 +67,5 @@ private:
 };
 
 // Find MCP config file
-// Checks: ./mcp.json, then ~/.config/llama-agent/mcp.json
+// Checks: ./mcp.json, then ~/.llama-agent/mcp.json
 std::string find_mcp_config(const std::string & working_dir);

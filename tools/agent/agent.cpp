@@ -42,13 +42,9 @@ static std::string get_config_dir() {
     }
     return "";
 #else
-    const char * xdg_config = std::getenv("XDG_CONFIG_HOME");
-    if (xdg_config) {
-        return std::string(xdg_config) + "/llama-agent";
-    }
     const char * home = std::getenv("HOME");
     if (home) {
-        return std::string(home) + "/.config/llama-agent";
+        return std::string(home) + "/.llama-agent";
     }
     return "";
 #endif
@@ -276,7 +272,7 @@ int main(int argc, char ** argv) {
     agents_md_manager agents_md_mgr;
     int agents_md_count = 0;
     if (enable_agents_md) {
-        // Pass config_dir for global AGENTS.md support (~/.config/llama-agent/AGENTS.md)
+        // Pass config_dir for global AGENTS.md support (~/.llama-agent/AGENTS.md)
         std::string agents_config_dir = get_config_dir();
         agents_md_count = agents_md_mgr.discover(working_dir, agents_config_dir);
 
@@ -420,7 +416,7 @@ int main(int argc, char ** argv) {
                     console::log("\nNo skills discovered.\n");
                     console::log("Skills are loaded from:\n");
                     console::log("  ./.llama-agent/skills/  (project-local)\n");
-                    console::log("  ~/.config/llama-agent/skills/  (user-global)\n");
+                    console::log("  ~/.llama-agent/skills/  (user-global)\n");
                 } else {
                     console::log("\nAvailable skills:\n");
                     for (const auto & skill : skills) {
@@ -437,7 +433,7 @@ int main(int argc, char ** argv) {
                     console::log("\nNo AGENTS.md files discovered.\n");
                     console::log("AGENTS.md files are searched from:\n");
                     console::log("  ./AGENTS.md to git root  (project-specific)\n");
-                    console::log("  ~/.config/llama-agent/AGENTS.md  (global)\n");
+                    console::log("  ~/.llama-agent/AGENTS.md  (global)\n");
                 } else {
                     console::log("\nDiscovered AGENTS.md files (closest first):\n");
                     for (const auto & file : files) {
