@@ -2,7 +2,7 @@
 
 An agentic coding assistant built on [llama.cpp](https://github.com/ggml-org/llama.cpp).
 
-<img width="2924" height="2168" alt="image" src="https://github.com/user-attachments/assets/00865829-532c-4294-b82b-6b025e1ea0f1" />
+<img width="1536" height="1024" alt="image" src="https://github.com/user-attachments/assets/db564393-f234-4646-a9ab-92a3140ceb2c" />
 
 ## What is it?
 
