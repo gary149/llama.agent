@@ -1,12 +1,16 @@
 # llama-agent
 
-An agentic coding assistant built on [llama.cpp](https://github.com/ggml-org/llama.cpp).
+A coding agent that runs entirely inside [llama.cpp](https://github.com/ggml-org/llama.cpp): single binary, zero dependencies, native performance.
 
 <img width="1536" height="1024" alt="image" src="https://github.com/user-attachments/assets/db564393-f234-4646-a9ab-92a3140ceb2c" />
 
 ## What is it?
 
-`llama-agent` transforms a local LLM into a coding assistant that can autonomously complete programming tasks. It uses tool calling to read files, write code, run commands, and navigate codebases.
+`llama-agent` builds on llama.cpp's inference engine and adds an agentic tool-use loop on top. The result:
+
+- **Single binary**: no Python, no Node.js, just download and run
+- **Native speed**: tool calls in-process, no HTTP overhead
+- **100% local**: offline, no API costs, your code stays on your machine
 
 ## Quick Start
 
