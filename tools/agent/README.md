@@ -2,7 +2,7 @@
 
 A coding agent that runs entirely inside [llama.cpp](https://github.com/ggml-org/llama.cpp): single binary, zero dependencies, native performance.
 
-<img width="1536" height="1024" alt="image" src="https://github.com/user-attachments/assets/db564393-f234-4646-a9ab-92a3140ceb2c" />
+<img width="1500" height="960" alt="image" src="https://github.com/user-attachments/assets/7f917819-50ab-447f-9504-6406b2670ad5" />
 
 ## What is it?
 
