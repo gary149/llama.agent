@@ -681,6 +681,19 @@ agent_loop_result agent_loop::run(const std::string & user_prompt) {
         result_timings timings;
         common_chat_msg parsed = generate_completion(timings);
 
+        // Accumulate session statistics
+        if (timings.prompt_n > 0) {
+            stats_.total_input += timings.prompt_n;
+            stats_.total_prompt_ms += timings.prompt_ms;
+        }
+        if (timings.predicted_n > 0) {
+            stats_.total_output += timings.predicted_n;
+            stats_.total_predicted_ms += timings.predicted_ms;
+        }
+        if (timings.cache_n > 0) {
+            stats_.total_cached += timings.cache_n;
+        }
+
         if (parsed.content.empty() && parsed.tool_calls.empty() && is_interrupted_.load()) {
             result.stop_reason = agent_stop_reason::USER_CANCELLED;
             return result;

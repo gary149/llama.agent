@@ -48,6 +48,15 @@ struct agent_loop_result {
     int iterations = 0;
 };
 
+// Session-level statistics for token tracking
+struct session_stats {
+    int32_t total_input = 0;       // Total prompt tokens processed
+    int32_t total_output = 0;      // Total tokens generated
+    int32_t total_cached = 0;      // Total tokens served from KV cache
+    double total_prompt_ms = 0;    // Total prompt evaluation time
+    double total_predicted_ms = 0; // Total generation time
+};
+
 // The main agent loop class
 class agent_loop {
 public:
@@ -64,6 +73,9 @@ public:
 
     // Get current messages (for debugging)
     const json & get_messages() const { return messages_; }
+
+    // Get session statistics
+    const session_stats & get_stats() const { return stats_; }
 
 private:
     // Generate a completion and get the parsed response with tool calls
@@ -85,4 +97,5 @@ private:
     task_params task_defaults_;
     permission_manager permission_mgr_;
     tool_context tool_ctx_;
+    session_stats stats_;
 };
