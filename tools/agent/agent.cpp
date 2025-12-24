@@ -342,6 +342,7 @@ int main(int argc, char ** argv) {
         console::log("commands:\n");
         console::log("  /exit       exit the agent\n");
         console::log("  /clear      clear conversation history\n");
+        console::log("  /stats      show token usage statistics\n");
         console::log("  /tools      list available tools\n");
         console::log("  /skills     list available skills\n");
         console::log("  /agents     list discovered AGENTS.md files\n");
@@ -406,6 +407,25 @@ int main(int argc, char ** argv) {
                 for (const auto * tool : tool_registry::instance().get_all_tools()) {
                     console::log("  %s:\n", tool->name.c_str());
                     console::log("    %s\n", tool->description.c_str());
+                }
+                continue;
+            }
+            if (buffer == "/stats") {
+                const auto & stats = agent.get_stats();
+                console::log("\nSession Statistics:\n");
+                console::log("  Prompt tokens:  %d\n", stats.total_input);
+                console::log("  Output tokens:  %d\n", stats.total_output);
+                if (stats.total_cached > 0) {
+                    console::log("  Cached tokens:  %d\n", stats.total_cached);
+                }
+                console::log("  Total tokens:   %d\n", stats.total_input + stats.total_output);
+                if (stats.total_prompt_ms > 0) {
+                    console::log("  Prompt time:    %.2fs\n", stats.total_prompt_ms / 1000.0);
+                }
+                if (stats.total_predicted_ms > 0) {
+                    console::log("  Gen time:       %.2fs\n", stats.total_predicted_ms / 1000.0);
+                    double avg_speed = stats.total_output * 1000.0 / stats.total_predicted_ms;
+                    console::log("  Avg speed:      %.1f tok/s\n", avg_speed);
                 }
                 continue;
             }
