@@ -605,7 +605,8 @@ tool_result agent_loop::execute_tool_call(const common_chat_tool_call & call) {
 
     // Display tool execution
     console::set_display(DISPLAY_TYPE_INFO);
-    console::log("\n› %s\n", call.name.c_str());
+    console::log("\n› %s ", call.name.c_str());
+    console::spinner::start();
     console::set_display(DISPLAY_TYPE_RESET);
 
     // Execute the tool with timing
@@ -613,6 +614,8 @@ tool_result agent_loop::execute_tool_call(const common_chat_tool_call & call) {
     tool_result result = registry.execute(call.name, args, tool_ctx_);
     auto end_time = std::chrono::steady_clock::now();
     auto elapsed_ms = std::chrono::duration_cast<std::chrono::milliseconds>(end_time - start_time).count();
+
+    console::spinner::stop();
 
     // Display result summary
     if (result.success) {
