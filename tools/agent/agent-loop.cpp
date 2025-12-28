@@ -626,7 +626,20 @@ tool_result agent_loop::execute_tool_call(const common_chat_tool_call & call) {
         }
         console::log("%s\n", display_output.c_str());
     } else {
-        console::error("Error: %s\n", result.error.c_str());
+        // Show output if available (e.g., bash stderr), plus error if set
+        if (!result.output.empty()) {
+            std::string display_output = result.output;
+            if (display_output.length() > 500) {
+                display_output = display_output.substr(0, 500) + "\n... (truncated)";
+            }
+            console::error("%s\n", display_output.c_str());
+        }
+        if (!result.error.empty()) {
+            console::error("Error: %s\n", result.error.c_str());
+        }
+        if (result.output.empty() && result.error.empty()) {
+            console::error("Error: Tool failed with no output\n");
+        }
     }
 
     // Display elapsed time
@@ -652,7 +665,16 @@ void agent_loop::add_tool_result_message(const std::string & tool_name,
     if (result.success) {
         msg["content"] = result.output;
     } else {
-        msg["content"] = "Error: " + result.error;
+        // Include output if available (e.g., bash stderr), plus error message if set
+        if (!result.output.empty() && !result.error.empty()) {
+            msg["content"] = result.output + "\nError: " + result.error;
+        } else if (!result.output.empty()) {
+            msg["content"] = result.output;
+        } else if (!result.error.empty()) {
+            msg["content"] = "Error: " + result.error;
+        } else {
+            msg["content"] = "Error: Tool failed with no output";
+        }
     }
 
     messages_.push_back(msg);
